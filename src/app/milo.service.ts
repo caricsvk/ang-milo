@@ -5,7 +5,7 @@ import {Observable, Observer} from "rxjs/Rx";
 import {TableColumn} from "./table/table-column";
 
 @Injectable()
-export class AppService implements TableService {
+export class MiloService implements TableService {
 
 	private state: {} = {};
 	private stateObserver: Observer<{}>;
@@ -37,7 +37,7 @@ export class AppService implements TableService {
 			}
 			let multiConst = tableState.getOrderType() == OrderType.DESC ? -1 : 1;
 			return first[tableState.order] < second[tableState.order] ? - 1 * multiConst
-				: first[tableState.order] > second[tableState.order] ? 1 * multiConst : 0;
+				: first[tableState.order] > second[tableState.order] ? multiConst : 0;
 		}).slice(startIndex, endIndex));
 	}
 

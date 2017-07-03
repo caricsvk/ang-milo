@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {AppService} from "./app.service";
+import {MiloService} from "./milo.service";
 
 @Component({
 	selector: 'milo-root',
-	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.css']
+	templateUrl: './milo.component.html',
+	styleUrls: ['./milo.component.css']
 })
-export class AppComponent implements OnInit {
+export class MiloComponent implements OnInit {
 
 	title = 'milo';
 
-	constructor(public appService: AppService) {
+	constructor(public service: MiloService) {
 		console.log('AppComponent constructor');
 	}
 
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 		// this.activatedRoute.queryParams.subscribe(params => {
 		// 	this.appService.setState(params);
 		// });
-		this.appService.onStateChange().subscribe(state => {
+		this.service.onStateChange().subscribe(state => {
 			// this.router.navigate(['.'], {queryParams: state, preserveFragment: true, relativeTo: this.activatedRoute});
 		});
 	}
