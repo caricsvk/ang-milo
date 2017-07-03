@@ -1,0 +1,84 @@
+<form class="milo-table-form ui form" (ngSubmit)="filter()">
+	<table class="ui striped celled table">
+
+		<thead>
+		<tr>
+			<th *ngFor="let column of columns" (click)="changeSort(column)">
+				<i class="sort icon" style="float: right;"
+				   [ngClass]="{'ascending': column.key == state.order && state.orderType == 'ASC',
+			               'descending': column.key == state.order && state.orderType == 'DESC'}">
+				</i>
+				{{column.name}}
+			</th>
+			<th style="text-align: right;">
+				<div class="ui left labeled button" (click)="showFilters=!showFilters">
+					<a class="ui basic label">
+						{{rowsTotalCount}}
+					</a>
+					<div class="ui icon button">
+						<i class="filter icon"></i>
+					</div>
+				</div>
+			</th>
+		</tr>
+		<tr *ngIf="showFilters">
+			<th *ngFor="let column of columns">
+				<milo-filter [column]="column" [value]="state.getValue(column.getQueryKey())"
+				                   (onChange)="changeFilter(column, $event)">
+				</milo-filter>
+			</th>
+			<th>
+				<button class="ui icon fluid button">
+					<i class="search icon"></i>
+				</button>
+			</th>
+		</tr>
+		</thead>
+
+
+		<tbody>
+		<tr *ngFor="let row of rows">
+			<td *ngFor="let column of columns">
+				{{row ? column.view(row) : ""}}
+			</td>
+			<td>
+				<button *ngFor="let action of actions" (click)="action.trigger(row)" type="button" class="ui icon button"
+				        [ngStyle]="{'display': action.show() ? 'inline-block' : 'none', visibility: row ? 'visible': 'hidden'}">
+					<!--<i class="pencil icon"></i> showed/hidden-->
+					{{action.name}}
+				</button>
+			</td>
+		</tr>
+		</tbody>
+
+
+		<tfoot>
+		<tr>
+			<th [attr.colspan]="columns.length + 1">
+				<div class="ui stackable grid">
+					<div class="ten wide column">
+						<button type="button" class="ui small button" *ngFor="let value of [5, 10, 20, 50, 100]"
+						        (click)="changePageSize(value)" [ngClass]="{'active': value == state.pageSize}">
+							{{value}}
+						</button>
+						rows / page
+					</div>
+					<div class="six wide column">
+						<div class="ui right floated pagination menu">
+							<button type="button" class="icon item" (click)="changePage(-1)">
+								<i class="left chevron icon"></i>
+							</button>
+							<a class="item">{{state.page}} / {{maxPages}}</a>
+							<button type="button" class="icon item" (click)="changePage(1)">
+								<i class="right chevron icon"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</th>
+		</tr>
+		</tfoot>
+
+
+	</table>
+</form>

@@ -1,0 +1,63 @@
+<div [ngSwitch]="column.type">
+
+	<!-- TODO empty handling -->
+	<div *ngSwitchDefault class="field">
+		<input [name]="column.key" type="text" [placeholder]="column.name"
+		       [ngModel]="value" (ngModelChange)="emitChange($event)"/>
+	</div>
+
+	<div *ngSwitchCase="'number'" class="two fields">
+		<span class="field">
+			<input [name]="column.key + 'min'" type="number" placeholder="Min"
+			       [ngModel]="value.min" (ngModelChange)="emitChange({'min': $event})"/>
+		</span>
+		<span class="field">
+			<input [name]="column.key + 'max'" type="number" placeholder="Max"
+			       [ngModel]="value.max" (ngModelChange)="emitChange({'max': $event})"/>
+		</span>
+	</div>
+
+	<div *ngSwitchCase="'datetime'" class="two fields">
+		<span class="field">
+			<!--<calendar placeholder="From" (onChange)="emitChange({'min': $event})"></calendar>-->
+		</span>
+		<span class="field">
+			<!--<calendar placeholder="To" (onChange)="emitChange({'max': $event})"></calendar>-->
+		</span>
+	</div>
+	<!--<span ng-switch-when="time">-->
+	<!--<div>-->
+	<!--<button ng-model="column.state.min" ng-click="column.pickerMin=!column.pickerMin" ng-change="updateColumnState(column)"-->
+	<!--type="button" class="date-filter" uib-datepicker-popup is-open="column.pickerMin" show-weeks="false" ng-attr-title="{{::_(column.name)}}">-->
+	<!--<span ng-if="column.state.min">{{column.state.min | date}}</span>-->
+	<!--<span ng-if="! column.state.min">{{::_('Date')}}</span>-->
+	<!--&nbsp;-->
+	<!--<i class="glyphicon glyphicon-calendar"></i>-->
+	<!--</button>-->
+	<!--</div>-->
+	<!--</span>-->
+	<!--<div ng-switch-when="boolean" class="bool-handler">-->
+	<!--<i class="fa fa-check fa-fw" ng-class="{active: column.state == 'true'}" ng-click="updateColumnState(column, 'true');"></i>-->
+	<!--<i class="fa fa-times fa-fw" ng-class="{active: column.state == 'false'}" ng-click="updateColumnState(column, 'false');"></i>-->
+	<!--<i class="fa fa-refresh fa-fw" ng-show="column.state" ng-click="updateColumnState(column, null);"></i>-->
+	<!--</div>-->
+	<!--<div ng-switch-when="entity">-->
+	<!--<select class="form-control" multiple="multiple" ng-if="column.entityDataResolved" ng-model="column.state"-->
+	<!--ng-options="item[column.filterView] for item in column.entityDataResolved track by item[column.filterKey]"-->
+	<!--ng-multi-select ng-multi-select-track="column.entityDataResolved" ng-multi-select-keep-open="false" ng-multi-select-id="column.filterKey">-->
+	<!--</select>-->
+	<!--<input class="form-control" type="text" ng-if="!column.entityData" ng-model="column.state" />-->
+	<!--</div>-->
+	<!--<div class="enum" ng-switch-when="enum">-->
+	<!--<select class="form-control" ng-model="column.state" ng-options=""-->
+	<!--milo-service="service.getName()" milo-enum="column.originalType">-->
+	<!--</select>-->
+	<!--</div>-->
+	<!--<div ng-switch-when="number">-->
+	<!--<input class="form-control" type="text" placeholder="{{::_('Min')}}"-->
+	<!--ng-model="column.state.min" ng-change="updateColumnState(column)" />-->
+	<!--<input class="form-control" type="text" placeholder="{{::_('Max')}}"-->
+	<!--ng-model="column.state.max" ng-change="updateColumnState(column)" />-->
+	<!--</div>-->
+
+</div>
