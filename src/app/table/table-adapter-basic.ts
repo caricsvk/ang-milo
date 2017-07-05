@@ -1,9 +1,10 @@
 import {Observable, Observer} from "rxjs/Rx";
-import {TableIo} from "./table-io";
 import {TableState} from "./table-state";
 import {TableColumn} from "./table-column";
+import {TableAdapter} from "./table-adapter";
+import {TableAction} from "./table-action";
 
-export abstract class TableIoBasic implements TableIo {
+export abstract class TableAdapterBasic implements TableAdapter {
 
 	private state: {} = {};
 	private stateObserver: Observer<{}>;
@@ -24,6 +25,10 @@ export abstract class TableIoBasic implements TableIo {
 
 	onStateChange():Observable<{}> {
 		return this.stateObservable;
+	}
+
+	getActions(): TableAction[] {
+		return null;
 	}
 
 	abstract fetchData(tableState:TableState):Promise<any>;

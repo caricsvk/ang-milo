@@ -6,19 +6,21 @@ import {TableComponent} from './table/table.component';
 import {FilterComponent} from './filter/filter.component';
 import {MiloService} from "./milo.service";
 import {MiloComponent} from "./milo.component";
+import { InputComponent } from './input/input.component';
 
 @NgModule({
 	declarations: [
 		MiloComponent,
 		TableComponent,
-		FilterComponent
+		FilterComponent,
+		InputComponent
 	],
 	imports: [
 		BrowserModule,
 		FormsModule
 	],
 	exports: [
-		TableComponent
+		TableComponent, InputComponent
 	],
 	providers: [MiloService],
 	bootstrap: [MiloComponent]

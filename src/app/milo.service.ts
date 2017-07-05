@@ -2,10 +2,11 @@ import {Injectable} from '@angular/core';
 import {TableState, OrderType} from "./table/table-state";
 import {Observable, Observer} from "rxjs/Rx";
 import {TableColumn} from "./table/table-column";
-import {TableIo} from "./table/table-io";
+import {TableAdapter} from "./table/table-adapter";
+import {TableAction} from "./table/table-action";
 
 @Injectable()
-export class MiloService implements TableIo {
+export class MiloService implements TableAdapter {
 
 	private state: {} = {};
 	private stateObserver: Observer<{}>;
@@ -54,6 +55,10 @@ export class MiloService implements TableIo {
 		columns.push(new TableColumn("Tags", "tags.tag", "entity", (row) =>
 			row.tags ? row.tags.map(tagEntity => tagEntity.tag).join(',') : ''));
 		return columns;
+	}
+
+	getActions():TableAction[] {
+		return undefined;
 	}
 
 	data = [

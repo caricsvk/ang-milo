@@ -1,41 +1,44 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input, OnInit, OnChanges, SimpleChanges} from "@angular/core";
 import {TableState} from "./table-state";
 import {TableColumn} from "./table-column";
 import {TableAction} from "./table-action";
-import {TableIo} from "./table-io";
+import {TableAdapter} from "./table-adapter";
 
 @Component({
 	selector: 'milo-table',
 	templateUrl: './table.component.html',
 	styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
 
 	// mandatory
-	@Input() private io:TableIo;
+	@Input() private adapter:TableAdapter;
 
 	// optional
-	@Input() private allowedColumns:string[] = null;
-	@Input() public actions:TableAction[] = [];
 	@Input() public showFilters:boolean = null;
 	@Input() public makeEmptyRows:boolean = true;
 
 	private state:TableState = new TableState(1, 10);
 	private stateForCount:TableState = new TableState(1, 10);
+	private actions:TableAction[] = null;
 	private columns:TableColumn[] = [];
 	private rows:any[] = [];
 	private maxPages:number = 1;
 	private rowsTotalCount:number = 0;
 
 	constructor() {
-		console.log('MiloTableComponent constructor', this.io);
+		console.log('MiloTableComponent constructor', this.adapter);
 	}
 
 	ngOnInit():void {
-		console.log('MiloTableComponent onInit', this.io);
-		this.columns = this.io.getAllColumns().filter(
-			column => !this.allowedColumns || this.allowedColumns.indexOf(column.key) >= 0);
-		this.io.onStateChange().subscribe(state => this.init(state));
+		console.log('MiloTableComponent onInit', this.adapter);
+	}
+
+	ngOnChanges(changes:SimpleChanges):void {
+		console.log('on change', changes);
+		this.columns = this.adapter.getAllColumns();
+		this.actions = this.adapter.getActions();
+		this.adapter.onStateChange().subscribe(state => this.init(state));
 	}
 
 	private init(params: {}):void {
@@ -50,7 +53,7 @@ export class TableComponent implements OnInit {
 			this.state.setOrder(this.columns[0]);
 		}
 		this.fetchCount(this.state);
-		this.io.fetchData(this.state).then(data => {
+		this.adapter.fetchData(this.state).then(data => {
 			this.rows = data;
 			for (let i = this.rows.length; this.makeEmptyRows && i < this.state.pageSize; i++) {
 				this.rows.push(null);
@@ -66,7 +69,7 @@ export class TableComponent implements OnInit {
 	}
 
 	private fetchCount(state:TableState):void {
-		this.io.fetchCount(state).then(count => {
+		this.adapter.fetchCount(state).then(count => {
 			this.rowsTotalCount = count;
 			this.maxPages = parseInt("" + ((state.pageSize + count) / state.pageSize));
 		});
@@ -75,7 +78,7 @@ export class TableComponent implements OnInit {
 	public filter():void {
 		// console.log('filter', this.stateForCount);
 		this.stateForCount.page = 1;
-		this.io.setState(this.stateForCount);
+		this.adapter.setState(this.stateForCount);
 	}
 
 	public changeFilter(column:TableColumn, value:any):void {
@@ -87,14 +90,14 @@ export class TableComponent implements OnInit {
 
 	public changeSort(column:TableColumn):void {
 		this.state.setOrder(column);
-		this.io.setState(this.state);
+		this.adapter.setState(this.state);
 	}
 
 	public changePage(page:number):void {
 		let newPage = this.state.page + page;
 		if (newPage >= 1 && newPage <= this.maxPages) {
 			this.state.page = newPage;
-			this.io.setState(this.state);
+			this.adapter.setState(this.state);
 		}
 	}
 
@@ -102,7 +105,7 @@ export class TableComponent implements OnInit {
 		if (size != this.state.pageSize) {
 			this.state.page = 1;
 			this.state.pageSize = size;
-			this.io.setState(this.state);
+			this.adapter.setState(this.state);
 		}
 	}
 

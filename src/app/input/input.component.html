@@ -1,0 +1,13 @@
+<!--<div [ngSwitch]="type">-->
+	<!--ng-class="{'has-error': hasError}"-->
+	<label *ngIf="label != null" [for]="id">{{name}}</label>
+
+	<input *ngIf="type!='textarea'" [(ngModel)]="model[name]" [type]="type" [id]="id" [placeholder]="name"/>
+
+	<!--<milo-select-entity *ngSwitchCase="select" [(ngModel)]="model[name]" [values]="values" [id]="id"></milo-select-entity>-->
+	<!--<milo-select-enum *ngSwitchCase="enum" [(ngModel)]="model[name]" [values]="values" [id]="id"></milo-select-enum>-->
+	<textarea *ngIf="type=='textarea'" [(ngModel)]="model[name]" [id]="id" rows="3"></textarea>
+
+		<!--<span milo-error-label="hasError"></span>-->
+
+<!--</div>-->
