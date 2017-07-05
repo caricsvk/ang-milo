@@ -74,3 +74,7 @@ export class TableColumn {
 	}
 
 }
+
+export enum TableColumnType {
+	TEXT, BOOLEAN, NUMBER, DATE, TIME, DATETIME
+}

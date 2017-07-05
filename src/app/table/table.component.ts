@@ -27,28 +27,22 @@ export class TableComponent implements OnInit, OnChanges {
 	private rowsTotalCount:number = 0;
 
 	constructor() {
-		console.log('MiloTableComponent constructor', this.adapter);
 	}
 
 	ngOnInit():void {
-		console.log('MiloTableComponent onInit', this.adapter);
 	}
 
 	ngOnChanges(changes:SimpleChanges):void {
-		console.log('on change', changes);
+		console.log('MiloTableComponent ngOnChanges');
 		this.columns = this.adapter.getAllColumns();
 		this.actions = this.adapter.getActions();
 		this.adapter.onStateChange().subscribe(state => this.init(state));
 	}
 
 	private init(params: {}):void {
-		// console.log('MiloTableComponent init', params);
-		this.state.clear();
-		this.stateForCount.clear();
-		for (let key in params) {
-			this.state.setValue(key, params[key]);
-			this.stateForCount.setValue(key, params[key]);
-		}
+		console.log('MiloTableComponent init', params);
+		this.state.reset(params);
+		this.stateForCount.reset(params);
 		if (!this.state.order) {
 			this.state.setOrder(this.columns[0]);
 		}

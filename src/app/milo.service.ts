@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {TableState, OrderType} from "./table/table-state";
+import {TableState} from "./table/table-state";
 import {Observable, Observer} from "rxjs/Rx";
 import {TableColumn} from "./table/table-column";
 import {TableAdapter} from "./table/table-adapter";
@@ -36,7 +36,7 @@ export class MiloService implements TableAdapter {
 			if (! tableState.order) {
 				return -1;
 			}
-			let multiConst = tableState.getOrderType() == OrderType.DESC ? -1 : 1;
+			let multiConst = tableState.getOrderType() == "DESC" ? -1 : 1;
 			return first[tableState.order] < second[tableState.order] ? - 1 * multiConst
 				: first[tableState.order] > second[tableState.order] ? multiConst : 0;
 		}).slice(startIndex, endIndex));

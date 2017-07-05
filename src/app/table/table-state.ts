@@ -14,15 +14,19 @@ export class TableState {
 		public page: number,
 		public pageSize: number,
 		public order?: string,
-		private orderType: OrderType = OrderType.DESC
+		private orderType: string = "DESC"
 	) {
 	}
 
-	public clear(): void {
+	public reset(params: {}): void {
 		for (let key in this) {
-			if (key != 'page' && key != 'pageSize' && key != 'order' && key != 'orderType') {
+			if (typeof this[key] != 'function' && key != 'page' && key != 'pageSize' && key != 'order'
+				&& key != 'orderType') {
 				delete this[key];
 			}
+		}
+		for (let key in params) {
+			this.setValue(key, params[key]);
 		}
 	}
 
@@ -30,7 +34,9 @@ export class TableState {
 		if (key == 'page' || key == 'pageSize') {
 			value = parseInt(value);
 		}
-		this[key] = value;
+		if (typeof value != 'function') {
+			this[key] = value;
+		}
 	}
 
 	public getValue(key: string): any {
@@ -43,24 +49,22 @@ export class TableState {
 	}
 
 	public setOrder(column: TableColumn): void {
-		this.orderType = this.order != column.key ? OrderType.DESC : this.getOppositeOrderType();
+		this.orderType = this.order != column.key ? "DESC": this.getOppositeOrderType();
 		this.order = column.key;
 	}
 
-	public getOrderType(): OrderType {
+	public getOrderType(): string {
 		return this.orderType;
 	}
 
-	private getOppositeOrderType(): OrderType {
-		return this.orderType === OrderType.ASC ? OrderType.DESC : OrderType.ASC;
+	private getOppositeOrderType(): string {
+		return this.orderType === "ASC" ? "DESC": "ASC";
 	}
 
 	public getUrlSearchParams(): URLSearchParams {
 		let params = new URLSearchParams();
 		for (let key in this) {
-			if (key == 'orderType') { // fix enum
-				params.set(key, this.orderType === OrderType.DESC ? 'DESC' : 'ASC');
-			} else if (this.hasOwnProperty(key) && this[key] && key != 'page' && key != 'pageSize') {
+			if (this.hasOwnProperty(key) && this[key] && key != 'page' && key != 'pageSize') {
 				params.set(key, "" + this[key])
 			}
 		}
@@ -70,8 +74,4 @@ export class TableState {
 		params.set('offset', "" + (limit * (page - 1)));
 		return params;
 	}
-}
-
-export enum OrderType {
-	ASC, DESC
 }

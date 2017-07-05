@@ -16,7 +16,6 @@ export class FilterComponent implements OnInit {
 	public onChange = new EventEmitter<any>();
 
 	constructor() {
-		console.log('MiloTableFilterComponent', this.column, 'x', this);
 	}
 
 	ngOnInit():void {
