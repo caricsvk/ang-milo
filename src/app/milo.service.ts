@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {TableService} from "./table/table-data-source";
 import {TableState, OrderType} from "./table/table-state";
 import {Observable, Observer} from "rxjs/Rx";
 import {TableColumn} from "./table/table-column";
+import {TableIo} from "./table/table-io";
 
 @Injectable()
-export class MiloService implements TableService {
+export class MiloService implements TableIo {
 
 	private state: {} = {};
 	private stateObserver: Observer<{}>;

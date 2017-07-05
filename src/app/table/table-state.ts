@@ -58,7 +58,9 @@ export class TableState {
 	public getUrlSearchParams(): URLSearchParams {
 		let params = new URLSearchParams();
 		for (let key in this) {
-			if (this.hasOwnProperty(key) && this[key] && key != 'page' && key != 'pageSize') {
+			if (key == 'orderType') { // fix enum
+				params.set(key, this.orderType === OrderType.DESC ? 'DESC' : 'ASC');
+			} else if (this.hasOwnProperty(key) && this[key] && key != 'page' && key != 'pageSize') {
 				params.set(key, "" + this[key])
 			}
 		}

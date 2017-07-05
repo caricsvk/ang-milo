@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from "@angular/core";
 import {TableState} from "./table-state";
 import {TableColumn} from "./table-column";
 import {TableAction} from "./table-action";
-import {TableService} from "./table-data-source";
+import {TableIo} from "./table-io";
 
 @Component({
 	selector: 'milo-table',
@@ -12,7 +12,7 @@ import {TableService} from "./table-data-source";
 export class TableComponent implements OnInit {
 
 	// mandatory
-	@Input() private service:TableService;
+	@Input() private io:TableIo;
 
 	// optional
 	@Input() private allowedColumns:string[] = null;
@@ -28,14 +28,14 @@ export class TableComponent implements OnInit {
 	private rowsTotalCount:number = 0;
 
 	constructor() {
-		console.log('MiloTableComponent constructor', this.service);
+		console.log('MiloTableComponent constructor', this.io);
 	}
 
 	ngOnInit():void {
-		console.log('MiloTableComponent onInit', this.service);
-		this.columns = this.service.getAllColumns().filter(
+		console.log('MiloTableComponent onInit', this.io);
+		this.columns = this.io.getAllColumns().filter(
 			column => !this.allowedColumns || this.allowedColumns.indexOf(column.key) >= 0);
-		this.service.onStateChange().subscribe(state => this.init(state));
+		this.io.onStateChange().subscribe(state => this.init(state));
 	}
 
 	private init(params: {}):void {
@@ -50,7 +50,7 @@ export class TableComponent implements OnInit {
 			this.state.setOrder(this.columns[0]);
 		}
 		this.fetchCount(this.state);
-		this.service.fetchData(this.state).then(data => {
+		this.io.fetchData(this.state).then(data => {
 			this.rows = data;
 			for (let i = this.rows.length; this.makeEmptyRows && i < this.state.pageSize; i++) {
 				this.rows.push(null);
@@ -66,7 +66,7 @@ export class TableComponent implements OnInit {
 	}
 
 	private fetchCount(state:TableState):void {
-		this.service.fetchCount(state).then(count => {
+		this.io.fetchCount(state).then(count => {
 			this.rowsTotalCount = count;
 			this.maxPages = parseInt("" + ((state.pageSize + count) / state.pageSize));
 		});
@@ -75,7 +75,7 @@ export class TableComponent implements OnInit {
 	public filter():void {
 		// console.log('filter', this.stateForCount);
 		this.stateForCount.page = 1;
-		this.service.setState(this.stateForCount);
+		this.io.setState(this.stateForCount);
 	}
 
 	public changeFilter(column:TableColumn, value:any):void {
@@ -87,14 +87,14 @@ export class TableComponent implements OnInit {
 
 	public changeSort(column:TableColumn):void {
 		this.state.setOrder(column);
-		this.service.setState(this.state);
+		this.io.setState(this.state);
 	}
 
 	public changePage(page:number):void {
 		let newPage = this.state.page + page;
 		if (newPage >= 1 && newPage <= this.maxPages) {
 			this.state.page = newPage;
-			this.service.setState(this.state);
+			this.io.setState(this.state);
 		}
 	}
 
@@ -102,7 +102,7 @@ export class TableComponent implements OnInit {
 		if (size != this.state.pageSize) {
 			this.state.page = 1;
 			this.state.pageSize = size;
-			this.service.setState(this.state);
+			this.io.setState(this.state);
 		}
 	}
 

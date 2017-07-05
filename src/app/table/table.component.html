@@ -64,12 +64,12 @@
 						rows / page
 					</div>
 					<div class="six wide column">
-						<div class="ui right floated pagination menu">
-							<button type="button" class="icon item" (click)="changePage(-1)">
+						<div class="ui right floated buttons">
+							<button type="button" class="ui icon button" (click)="changePage(-1)">
 								<i class="left chevron icon"></i>
 							</button>
-							<a class="item">{{state.page}} / {{maxPages}}</a>
-							<button type="button" class="icon item" (click)="changePage(1)">
+							<button type="button" class="ui basic button">{{state.page}} / {{maxPages}}</button>
+							<button type="button" class="ui icon button" (click)="changePage(1)">
 								<i class="right chevron icon"></i>
 							</button>
 						</div>
