@@ -7,20 +7,22 @@ import {FilterComponent} from './filter/filter.component';
 import {MiloService} from "./milo.service";
 import {MiloComponent} from "./milo.component";
 import { InputComponent } from './input/input.component';
+import { SelectComponent } from './select/select.component';
 
 @NgModule({
 	declarations: [
 		MiloComponent,
 		TableComponent,
 		FilterComponent,
-		InputComponent
+		InputComponent,
+		SelectComponent
 	],
 	imports: [
 		BrowserModule,
 		FormsModule
 	],
 	exports: [
-		TableComponent, InputComponent
+		TableComponent, InputComponent, SelectComponent
 	],
 	providers: [MiloService],
 	bootstrap: [MiloComponent]

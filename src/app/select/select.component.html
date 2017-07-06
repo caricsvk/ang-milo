@@ -1,0 +1,4 @@
+<select [(ngModel)]="model" (change)="change()">
+  <option [ngValue]="null">Select</option>
+  <option *ngFor="let option of options" [ngValue]="option">{{getLabel(option)}}</option>
+</select>
