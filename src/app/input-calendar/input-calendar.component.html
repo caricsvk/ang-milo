@@ -1,0 +1,10 @@
+<div class="ui calendar">
+
+  <div class="ui action input">
+    <input [name]="name" readonly="readonly" value="" [placeholder]="placeholder" type="text">
+    <button type="button" class="ui teal icon button" (click)="focusCalendar()" [ngClass]="{'loading': loading}">
+      <i class="calendar icon"></i>
+    </button>
+  </div>
+
+</div>

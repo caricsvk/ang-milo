@@ -1,6 +1,6 @@
 <!--<div [ngSwitch]="type">-->
 	<!--ng-class="{'has-error': hasError}"-->
-	<label *ngIf="label != null" [for]="id">{{name}}</label>
+	<label *ngIf="label != null" [for]="id">{{label}}</label>
 
 	<input *ngIf="type!='textarea' && type!='checkbox'" [(ngModel)]="model[name]" [type]="type" [id]="id" [placeholder]="name"/>
 	<input *ngIf="type=='checkbox'" [(ngModel)]="model[name]" type="checkbox" [id]="id"/>
