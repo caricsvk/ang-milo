@@ -34,14 +34,7 @@ export class LoadingComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	reload() {
-		this.loadingsCount = 3;
-		let interval = setInterval(() => {
-			if (this.loadingsCount) {
-				this.loadingsCount--;
-			} else {
-				clearInterval(interval);
-			}
-		}, 1500);
+		alert('Reload is not implemented yet!');
 	}
 
 }
