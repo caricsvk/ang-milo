@@ -9,6 +9,7 @@ import {MiloComponent} from "./milo.component";
 import { InputComponent } from './input/input.component';
 import { SelectComponent } from './select/select.component';
 import { InputCalendarComponent } from './input-calendar/input-calendar.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
 	declarations: [
@@ -17,14 +18,15 @@ import { InputCalendarComponent } from './input-calendar/input-calendar.componen
 		FilterComponent,
 		InputComponent,
 		SelectComponent,
-		InputCalendarComponent
+		InputCalendarComponent,
+		LoadingComponent
 	],
 	imports: [
 		BrowserModule,
 		FormsModule
 	],
 	exports: [
-		TableComponent, InputComponent, SelectComponent, InputCalendarComponent
+		TableComponent, InputComponent, SelectComponent, InputCalendarComponent, LoadingComponent
 	],
 	providers: [MiloService],
 	bootstrap: [MiloComponent]

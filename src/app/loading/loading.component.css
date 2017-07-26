@@ -1,0 +1,38 @@
+#loading {position: fixed; right: 0; top: 0; z-index: 5; float: right; cursor: pointer; height: 90%; z-index: 11;}
+#loading * {font-weight: bold; font-size: 25px;}
+
+.hidden {display: none;}
+
+#loading.small {
+    -webkit-transition:all cubic-bezier(0.2, 0, 0.3, 1) 0.8s;
+    -moz-transition:all cubic-bezier(0.2, 0, 0.3, 1) 0.8s;
+    -o-transition:all cubic-bezier(0.2, 0, 0.3, 1) 0.8s;
+    transition:all cubic-bezier(0.2, 0, 0.3, 1) 0.8s;
+}
+#loading.small,
+#loading.small-add.small-add-active {
+    height: 60px;
+}
+/*#loading.big {*/
+    /*-webkit-transition:all cubic-bezier(0, 0, 1, 1) 0.5s;*/
+    /*-moz-transition:all cubic-bezier(0, 0, 1, 1) 0.5s;*/
+    /*-o-transition:all cubic-bezier(0, 0, 1, 1) 0.5s;*/
+    /*transition:all cubic-bezier(0, 0, 1, 1) 0.5s;*/
+/*}*/
+/*#loading.big,*/
+/*#loading.big-add.big-add-active {*/
+    /*height: 100px;*/
+/*}*/
+
+/*#loading .load,*/
+/*#loading .reload, {*/
+    /*-webkit-transition:all cubic-bezier(0, 0, 1, 1) 3.5s;*/
+    /*-moz-transition:all cubic-bezier(0, 0, 1, 1) 3.5s;*/
+    /*-o-transition:all cubic-bezier(0, 0, 1, 1) 3.5s;*/
+    /*transition:all cubic-bezier(0, 0, 1, 1) 3.5s;*/
+/*}*/
+
+/*#loading .load {opacity: 1;}*/
+/*#loading .load.ng-hide {*/
+    /*opacity:0;*/
+/*}*/
