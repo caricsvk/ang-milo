@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ElementRef, AfterViewInit} from "@angular/core";
+import {Component, OnInit, OnDestroy, ElementRef, AfterViewInit, Output, EventEmitter} from "@angular/core";
 import {Subscription} from "rxjs/Rx";
 import {InterceptedHttp} from "../http.interceptor";
 
@@ -9,12 +9,13 @@ import {InterceptedHttp} from "../http.interceptor";
 })
 export class LoadingComponent implements OnInit, AfterViewInit, OnDestroy {
 
+	@Output() onReloadRequested = new EventEmitter<any>();
+
 	private subscription: Subscription;
 	public loadingClass = "small";
 	public loadingsCount = 0;
 
 	constructor(private el:ElementRef) {
-		window['xel'] = el;
 	}
 
 	ngOnInit() {
@@ -34,7 +35,7 @@ export class LoadingComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	reload() {
-		alert('Reload is not implemented yet!');
+		this.onReloadRequested.emit();
 	}
 
 }
