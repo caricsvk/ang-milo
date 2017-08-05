@@ -19,6 +19,9 @@ export class FilterComponent implements OnInit {
 	}
 
 	ngOnInit():void {
+		if (this.column.type == 'boolean' && typeof this.value != 'boolean' && this.value) {
+			this.value = this.value == 'true' ? true : false;
+		}
 	}
 
 	public emitChange(value:any):void {

@@ -64,7 +64,7 @@ export class TableState {
 	public getUrlSearchParams(): URLSearchParams {
 		let params = new URLSearchParams();
 		for (let key in this) {
-			if (this.hasOwnProperty(key) && this[key] && key != 'page' && key != 'pageSize') {
+			if (this.hasOwnProperty(key) && this.isValueSet(this[key]) && key != 'page' && key != 'pageSize') {
 				params.set(key, "" + this[key])
 			}
 		}
@@ -73,5 +73,9 @@ export class TableState {
 		params.set('limit', "" + limit);
 		params.set('offset', "" + (limit * (page - 1)));
 		return params;
+	}
+
+	private isValueSet(value: any): boolean {
+		return value != null && value !== undefined && value !== '';
 	}
 }

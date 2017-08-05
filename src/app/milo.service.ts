@@ -1,70 +1,20 @@
 import {Injectable} from '@angular/core';
-import {TableState} from "./table/table-state";
-import {Observable, Observer} from "rxjs/Rx";
-import {TableColumn} from "./table/table-column";
-import {TableAdapter} from "./table/table-adapter";
-import {TableAction} from "./table/table-action";
 
 @Injectable()
-export class MiloService implements TableAdapter {
-
-	private state: {} = {};
-	private stateObserver: Observer<{}>;
-	private stateObservable: Observable<{}> = Observable.create(observer => {
-		observer.next(this.state);
-		this.stateObserver = observer;
-	});
+export class MiloService {
 
 	constructor() {
 	}
 
-	setState(state:{}) {
-		this.state = state;
-		if (this.stateObserver) {
-			this.stateObserver.next(state);
-		}
+	getData() {
+		return this.data;
 	}
 
-	onStateChange():Observable<{}> {
-		return this.stateObservable;
-	}
-
-	fetchData(tableState:TableState):Promise<[any]> {
-		let startIndex = (tableState.page - 1) * tableState.pageSize;
-		let endIndex = startIndex + tableState.pageSize;
-		return Promise.resolve(this.data.sort((first, second) => {
-			if (! tableState.order) {
-				return -1;
-			}
-			let multiConst = tableState.getOrderType() == "DESC" ? -1 : 1;
-			return first[tableState.order] < second[tableState.order] ? - 1 * multiConst
-				: first[tableState.order] > second[tableState.order] ? multiConst : 0;
-		}).slice(startIndex, endIndex));
-	}
-
-	fetchCount(tableState:TableState):Promise<number> {
-		return Promise.resolve(this.data.length);
-	}
-
-	getAllColumns():TableColumn[] {
-		let columns:TableColumn[] = [];
-		columns.push(new TableColumn("ID", "id", "number"));
-		columns.push(new TableColumn("Name", "name"));
-		columns.push(new TableColumn("From", "start", "datetime"));
-		columns.push(new TableColumn("To", "end", "datetime"));
-		columns.push(new TableColumn("Tags", "tags.tag", "entity", (row) =>
-			row.tags ? row.tags.map(tagEntity => tagEntity.tag).join(',') : ''));
-		return columns;
-	}
-
-	getActions():TableAction[] {
-		return undefined;
-	}
-
-	data = [
+	private data = [
 		{
 			"id": 2,
 			"name": "Home",
+			"enabled": false,
 			"tags": [
 				{
 					"id": 101,
@@ -75,6 +25,7 @@ export class MiloService implements TableAdapter {
 		{
 			"id": 1,
 			"name": "World",
+			"enabled": false,
 			"tags": [
 				{
 					"id": 23,
@@ -95,6 +46,7 @@ export class MiloService implements TableAdapter {
 		{
 			"id": 4,
 			"name": "Tech & Science",
+			"enabled": true,
 			"tags": [
 				{
 					"id": 56,
@@ -109,6 +61,7 @@ export class MiloService implements TableAdapter {
 		{
 			"id": 24,
 			"name": "Relations & Sex",
+			"enabled": true,
 			"tags": [
 				{
 					"id": 20,
@@ -127,6 +80,7 @@ export class MiloService implements TableAdapter {
 		{
 			"id": 22,
 			"name": "Travel",
+			"enabled": true,
 			"tags": [
 				{
 					"id": 229,
@@ -137,6 +91,7 @@ export class MiloService implements TableAdapter {
 		{
 			"id": 39,
 			"name": "Entertainment",
+			"enabled": true,
 			"tags": [
 				{
 					"id": 245,
@@ -160,7 +115,8 @@ export class MiloService implements TableAdapter {
 		},
 		{
 			"id": 20,
-			"name": "TV & Movies"
+			"name": "TV & Movies",
+			"enabled": true
 		},
 		{
 			"id": 36,
@@ -172,6 +128,7 @@ export class MiloService implements TableAdapter {
 		{
 			"id": 23,
 			"name": "Style & Beauty",
+			"enabled": false,
 			"tags": [
 				{
 					"id": 74,
@@ -194,18 +151,22 @@ export class MiloService implements TableAdapter {
 		{
 			"id": 37,
 			"name": "Internet",
+			"enabled": true,
 			"tags": []
 		},
 		{
-			"name": "People"
+			"name": "People",
+			"enabled": true,
 		},
 		{
 			"id": 16,
+			"enabled": false,
 			"name": null
 		},
 		{
 			"id": 10,
 			"name": "Asia",
+			"enabled": true,
 			"tags": [
 				{
 					"id": 134,
@@ -218,18 +179,22 @@ export class MiloService implements TableAdapter {
 		},
 		{
 			"id": 34,
+			"enabled": true,
 			"name": "Work"
 		},
 		{
 			"id": 42,
+			"enabled": true,
 			"name": "Space & Physics"
 		},
 		{
 			"id": 31,
+			"enabled": true,
 			"name": "Personal Finance"
 		},
 		{
 			"id": 30,
+			"enabled": false,
 			"name": "Race",
 			"tags": [
 				{

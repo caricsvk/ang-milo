@@ -4,16 +4,9 @@ export class TableColumn {
 		public name: string,
 		public key: string,
 		public type?: string,
-		private viewFn?: (arg: any) => string,
-		public filterKey?: string,
-	    public filterView?: string
+		private viewFn?: (arg: any) => string
+	    // public filterView?: string
 	) {
-		if (!this.filterKey) {
-			this.filterKey = key;
-		}
-		if (!this.filterView) {
-			this.filterView = key;
-		}
 	}
 
 	public view(row: {}): string {
@@ -68,7 +61,7 @@ export class TableColumn {
 				break;
 		}
 		return {
-			key: this.filterKey + filterType,
+			key: this.key + filterType,
 			value: filterValue
 		};
 	}

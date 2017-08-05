@@ -12,7 +12,7 @@ export class InputCalendarComponent implements AfterViewInit {
 	@Input() name: string = "calendar";
 	@Input() type: string = "datetime";
 	@Input() placeholder: string = "";
-	@Input() value: Date = null;
+	@Input() value: string | Date = null;
 	@Input() minDate: Date = null;
 	@Input() loading: boolean = false;
 
@@ -46,7 +46,10 @@ export class InputCalendarComponent implements AfterViewInit {
 	ngOnChanges(): void {
 		if (this.calendarEl) {
 			if (this.value) {
-				let value = typeof this.value === 'string' ? new Date(this.value) : this.value;
+				// allows timestamp (string or number), date object or new Date(parsable string)
+				var numberValue = typeof this.value === 'string' || typeof this.value === 'number' ? parseInt(this.value) : 0;
+				var value = numberValue > 9999 ? new Date(numberValue) :
+					typeof this.value === 'string' ? new Date(this.value) : this.value;
 				this.calendarEl.calendar('set date', value, true, false);
 			} else {
 				this.calendarEl.calendar('clear');

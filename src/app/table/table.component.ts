@@ -33,7 +33,7 @@ export class TableComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes:SimpleChanges):void {
-		console.log('MiloTableComponent ngOnChanges');
+		// console.log('MiloTableComponent ngOnChanges');
 		this.columns = this.adapter.getAllColumns();
 		this.actions = this.adapter.getActions();
 		this.adapter.onStateChange().subscribe(state => this.init(state));
