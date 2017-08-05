@@ -43,7 +43,7 @@
 			</td>
 			<td>
 				<button *ngFor="let action of actions" (click)="action.trigger(row)" type="button" class="ui icon button"
-				        [ngStyle]="{'display': action.show() ? 'inline-block' : 'none', visibility: row ? 'visible': 'hidden'}">
+				        [ngStyle]="{'display': action.show(row) ? 'inline-block' : 'none', visibility: row ? 'visible': 'hidden'}">
 					<!--<i class="pencil icon"></i> showed/hidden-->
 					{{action.name}}
 				</button>

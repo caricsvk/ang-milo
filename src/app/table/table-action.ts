@@ -3,12 +3,12 @@ export class TableAction {
 	constructor(
 		public name: string,
 		public trigger: (arg: any) => void,
-	    private showed?: (arg: {}) => boolean
+	    private showed?: (arg: any) => boolean
 	) {
 	}
 
-	public show(row: {}): boolean {
-		return this.showed ? this.showed(row) : true;
+	public show(row: any): boolean {
+		return typeof this.showed === 'function' && row ? this.showed(row) : true;
 	}
 
 }
