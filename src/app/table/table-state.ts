@@ -75,6 +75,15 @@ export class TableState {
 		return params;
 	}
 
+	public containsKeyPrefix(searchedPrefix: string): boolean {
+		for (let key in this) {
+			if (this.hasOwnProperty(key) && this.isValueSet(this[key]) && key.startsWith(searchedPrefix)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private isValueSet(value: any): boolean {
 		return value != null && value !== undefined && value !== '';
 	}

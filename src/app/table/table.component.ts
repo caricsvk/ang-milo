@@ -55,8 +55,8 @@ export class TableComponent implements OnInit, OnChanges {
 		});
 
 		// set showFilters if there is some value in filters
-		for (let i = 1; this.showFilters == null && i < this.columns.length; i++) {
-			if (this.state[this.columns[i].getQueryKey()]) {
+		for (let i = 0; this.showFilters == null && i < this.columns.length; i++) {
+			if (this.state.containsKeyPrefix(this.columns[i].key)) {
 				this.showFilters = true;
 			}
 		}
