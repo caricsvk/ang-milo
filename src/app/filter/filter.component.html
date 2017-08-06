@@ -1,6 +1,5 @@
 <div [ngSwitch]="column.type">
 
-	<!-- TODO empty handling -->
 	<div *ngSwitchDefault class="field">
 		<input [name]="column.key" type="text" [placeholder]="column.name"
 		       [ngModel]="value" (ngModelChange)="emitChange($event)"/>
@@ -35,6 +34,10 @@
 		<label><input [name]="column.key" type="radio" (click)="emitChange(null)" [checked]="value == null" /> N</label>
 	</div>
 
+	<div *ngSwitchCase="'select'" class="field">
+		<milo-select [model]="value" [options]="column.values" (onChange)="emitChange($event)"></milo-select>
+	</div>
+
 	<!--<span ng-switch-when="time">-->
 	<!--<div>-->
 	<!--<button ng-model="column.state.min" ng-click="column.pickerMin=!column.pickerMin" ng-change="updateColumnState(column)"-->
@@ -46,19 +49,6 @@
 	<!--</button>-->
 	<!--</div>-->
 	<!--</span>-->
-
-	<!--<div ng-switch-when="entity">-->
-	<!--<select class="form-control" multiple="multiple" ng-if="column.entityDataResolved" ng-model="column.state"-->
-	<!--ng-options="item[column.filterView] for item in column.entityDataResolved track by item[column.filterKey]"-->
-	<!--ng-multi-select ng-multi-select-track="column.entityDataResolved" ng-multi-select-keep-open="false" ng-multi-select-id="column.filterKey">-->
-	<!--</select>-->
-	<!--<input class="form-control" type="text" ng-if="!column.entityData" ng-model="column.state" />-->
-	<!--</div>-->
-
-	<!--<div class="enum" ng-switch-when="enum">-->
-	<!--<select class="form-control" ng-model="column.state" ng-options=""-->
-	<!--milo-service="service.getName()" milo-enum="column.originalType">-->
-	<!--</select>-->
-	<!--</div>-->
+	<!-- TODO empty handling -->
 
 </div>

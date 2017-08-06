@@ -4,8 +4,8 @@ export class TableColumn {
 		public name: string,
 		public key: string,
 		public type?: string,
-		private viewFn?: (arg: any) => string
-	    // public filterView?: string
+		private viewFn?: (arg: any) => string,
+	    public values?: any[]
 	) {
 	}
 

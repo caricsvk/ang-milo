@@ -33,16 +33,17 @@ export class SelectComponent implements OnInit, AfterViewInit {
 		if (jQuery) {
 			let dropdown:any = jQuery(this.el.nativeElement);
 			if (dropdown.dropdown) {
-				console.log('init', dropdown, this.options);
-				dropdown.find('select').dropdown({
+				let select = dropdown.find('select');
+				select.dropdown({
 					fullTextSearch: true
 				});
 				// 	onChange: function (value) {
 				// 		console.log('changeee', value);
 				// 	}
+				if (this.model) {
+					setTimeout(() => select.dropdown('set selected', this.getLabel(this.model)));
+				}
 			}
-			// TODO
-			// dropdown.dropdown('set selected', this.request.requestMainInfo.preferredTime);
 		}
 	}
 
