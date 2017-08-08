@@ -11,7 +11,8 @@ export interface TableAdapter {
 	getAllColumns(): TableColumn[];
 	getActions(): TableAction[];
 
-	setState(state: {});
-	onStateChange(): Observable<{}>;
+	getState(): TableState;
+	setState(state: TableState);
+	onStateChange(): Observable<TableState>;
 
 }

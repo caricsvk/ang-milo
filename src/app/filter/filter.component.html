@@ -6,7 +6,6 @@
 	</div>
 
 	<div *ngSwitchCase="'number'" class="two fields">
-
 		<span class="field">
 			<input [name]="column.key + 'min'" type="number" placeholder="Min"
 			       [ngModel]="value.min" (ngModelChange)="emitChange({'min': $event})"/>
@@ -19,12 +18,12 @@
 
 	<div *ngSwitchCase="'datetime'" class="two fields">
 		<span class="field">
-			<milo-input-calendar placeholder="From" (onChange)="emitChange({'min': $event.getDate()})"
-			                     [value]="value.min"></milo-input-calendar>
+			<milo-input-calendar placeholder="From" (onChange)="emitChange({'min': $event.getDate()})" [value]="value.min">
+			</milo-input-calendar>
 		</span>
 		<span class="field">
-			<milo-input-calendar placeholder="To" (onChange)="emitChange({'max': $event.getDate()})"
-			                     [value]="value.max"></milo-input-calendar>
+			<milo-input-calendar placeholder="To" (onChange)="emitChange({'max': $event.getDate()})" [value]="value.max">
+			</milo-input-calendar>
 		</span>
 	</div>
 

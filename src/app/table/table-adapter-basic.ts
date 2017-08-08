@@ -6,20 +6,33 @@ import {TableAction} from "./table-action";
 
 export abstract class TableAdapterBasic implements TableAdapter {
 
-	private state: {} = {};
-	private stateObserver: Observer<{}>;
-	private stateObservable: ConnectableObservable<{}> = Observable.create(observer => this.stateObserver = observer).publishReplay(1);
+	private state: TableState;
+	private lastFetchedState: string;
+	private stateObserver: Observer<TableState>;
+	private stateObservable: ConnectableObservable<TableState> = Observable.create(observer => this.stateObserver = observer).publish();
 
-	constructor() {
+	constructor(state: TableState = new TableState()) {
 		this.stateObservable.connect();
-		this.stateObserver.next(this.state);
+		this.setState(state);
 	}
 
-	setState(state:{}) {
-		this.state = state;
-		if (this.stateObserver) {
+	private getStateString(state: TableState): string {
+		// prevent fetching duplicated state
+		let numberToString = (key, value) => typeof value == 'number' ? value + "" : value;
+		return JSON.stringify(state, numberToString);
+	}
+
+	setState(state: TableState) {
+		let newStateString = this.getStateString(state);
+		if (this.stateObserver && this.lastFetchedState != newStateString) {
+			this.lastFetchedState = newStateString;
+			this.state = state;
 			this.stateObserver.next(state);
 		}
+	}
+
+	getState(): TableState {
+		return this.state;
 	}
 
 	onStateChange():Observable<{}> {

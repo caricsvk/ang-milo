@@ -11,23 +11,19 @@ export class TableState {
 	 * @param order
 	 */
 	constructor(
-		public page: number,
-		public pageSize: number,
+		public page: number = 1,
+		public pageSize: number = 10,
 		public order?: string,
 		private orderType: string = "DESC"
 	) {
 	}
 
-	public reset(params: {}): void {
-		for (let key in this) {
-			if (typeof this[key] != 'function' && key != 'page' && key != 'pageSize' && key != 'order'
-				&& key != 'orderType') {
-				delete this[key];
-			}
-		}
+	public static create(params: {}): TableState {
+		let result = new TableState();
 		for (let key in params) {
-			this.setValue(key, params[key]);
+			result.setValue(key, params[key]);
 		}
+		return result;
 	}
 
 	public setValue(key: string, value: any) {

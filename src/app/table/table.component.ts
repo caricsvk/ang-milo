@@ -19,7 +19,6 @@ export class TableComponent implements OnInit, OnChanges {
 	@Input() public makeEmptyRows:boolean = true;
 
 	private state:TableState = new TableState(1, 10);
-	private stateForCount:TableState = new TableState(1, 10);
 	private actions:TableAction[] = null;
 	private columns:TableColumn[] = [];
 	private rows:any[] = [];
@@ -36,13 +35,13 @@ export class TableComponent implements OnInit, OnChanges {
 		// console.log('MiloTableComponent ngOnChanges');
 		this.columns = this.adapter.getAllColumns();
 		this.actions = this.adapter.getActions();
-		this.adapter.onStateChange().subscribe(state => this.init(state));
+		this.adapter.onStateChange().subscribe(state => this.fetch(state));
+		this.fetch(this.adapter.getState());
 	}
 
-	private init(params: {}):void {
-		console.log('MiloTableComponent init', params);
-		this.state.reset(params);
-		this.stateForCount.reset(params);
+	private fetch(newState: TableState):void {
+		console.log('MiloTableComponent fetching', newState);
+		this.state = newState;
 		if (!this.state.order) {
 			this.state.setOrder(this.columns[0]);
 		}
@@ -71,15 +70,15 @@ export class TableComponent implements OnInit, OnChanges {
 
 	public filter():void {
 		// console.log('filter', this.stateForCount);
-		this.stateForCount.page = 1;
-		this.adapter.setState(this.stateForCount);
+		this.state.page = 1;
+		this.adapter.setState(this.state);
 	}
 
 	public changeFilter(column:TableColumn, value:any):void {
 		// console.log('changeFilter', value, column);
 		let query = column.getQuery(value);
-		this.stateForCount[query.key] = query.value;
-		this.fetchCount(this.stateForCount);
+		this.state[query.key] = query.value;
+		this.fetchCount(this.state);
 	}
 
 	public changeSort(column:TableColumn):void {

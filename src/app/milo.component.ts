@@ -35,23 +35,23 @@ export class MiloComponent implements OnInit {
 
 class MiloTestTable implements TableAdapter {
 
-	private state: {} = {};
+	private state: TableState = new TableState();
 	private stateObserver: Observer<{}>;
-	private stateObservable: ConnectableObservable<{}> = Observable.create(observer => this.stateObserver = observer).publishReplay(1);
+	private stateObservable: ConnectableObservable<TableState> = Observable.create(observer => this.stateObserver = observer).publishReplay(1);
 
 	constructor(private service: MiloService) {
 		this.stateObservable.connect();
 		this.stateObserver.next(this.state);
 	}
 
-	setState(state:{}) {
+	setState(state:TableState) {
 		this.state = state;
 		if (this.stateObserver) {
 			this.stateObserver.next(state);
 		}
 	}
 
-	onStateChange():Observable<{}> {
+	onStateChange():Observable<TableState> {
 		return this.stateObservable;
 	}
 
