@@ -51,6 +51,10 @@ class MiloTestTable implements TableAdapter {
 		}
 	}
 
+	getState(): TableState {
+		return this.state;
+	}
+
 	onStateChange():Observable<TableState> {
 		return this.stateObservable;
 	}
