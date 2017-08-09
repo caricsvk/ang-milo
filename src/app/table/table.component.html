@@ -23,8 +23,7 @@
 		</tr>
 		<tr *ngIf="showFilters">
 			<th *ngFor="let column of columns">
-				<milo-filter [column]="column" [value]="state.getValue(column.getQueryKey())"
-				                   (onChange)="changeFilter(column, $event)">
+				<milo-filter [column]="column" [value]="state.getValue(column)" (onChange)="changeFilter(column, $event)">
 				</milo-filter>
 			</th>
 			<th>

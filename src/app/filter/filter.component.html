@@ -28,9 +28,9 @@
 	</div>
 
 	<div *ngSwitchCase="'boolean'" class="boolean-handler">
-		<label><input [name]="column.key" type="radio" (click)="emitChange(true)" [checked]="value == true" /> T</label>
-		<label><input [name]="column.key" type="radio" (click)="emitChange(false)" [checked]="value == false" /> F</label>
-		<label><input [name]="column.key" type="radio" (click)="emitChange(null)" [checked]="value == null" /> N</label>
+		<label><input [name]="column.key" type="radio" (click)="emitChange(true)" [checked]="value === true" /> T</label>
+		<label><input [name]="column.key" type="radio" (click)="emitChange(false)" [checked]="value === false" /> F</label>
+		<label><input [name]="column.key" type="radio" (click)="emitChange(null)" [checked]="value === null" /> N</label>
 	</div>
 
 	<div *ngSwitchCase="'select'" class="field">

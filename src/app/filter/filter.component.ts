@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
 import {TableColumn} from "../table/table-column";
 
 @Component({
@@ -6,7 +6,7 @@ import {TableColumn} from "../table/table-column";
 	templateUrl: './filter.component.html',
 	styleUrls: ['./filter.component.css']
 })
-export class FilterComponent implements OnInit {
+export class FilterComponent implements OnChanges {
 
 	@Input()
 	public column:TableColumn;
@@ -18,9 +18,22 @@ export class FilterComponent implements OnInit {
 	constructor() {
 	}
 
-	ngOnInit():void {
-		if (this.column.type == 'boolean' && typeof this.value != 'boolean' && this.value) {
-			this.value = this.value == 'true' ? true : false;
+	ngOnChanges(changes:SimpleChanges):void {
+		if (this.column.type == 'boolean') {
+			this.value = this.convertBooleanValue(this.value);
+		}
+	}
+
+	private convertBooleanValue(value: any): boolean {
+		switch (value) {
+			case 'true':
+				return true;
+			case 'false':
+				return false;
+			case 'null':
+				return null;
+			default:
+				return value;
 		}
 	}
 
