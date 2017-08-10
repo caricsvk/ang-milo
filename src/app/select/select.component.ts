@@ -18,6 +18,8 @@ export class SelectComponent implements OnInit, AfterViewInit {
 	@Input()
 	public value: any; // string key or function which modifies option
 
+	private jqueryDropdown: any;
+
 	constructor(private el:ElementRef) {
 	}
 
@@ -33,15 +35,15 @@ export class SelectComponent implements OnInit, AfterViewInit {
 		if (jQuery) {
 			let dropdown:any = jQuery(this.el.nativeElement);
 			if (dropdown.dropdown) {
-				let select = dropdown.find('select');
-				select.dropdown({
+				this.jqueryDropdown = dropdown.find('select');
+				this.jqueryDropdown.dropdown({
 					fullTextSearch: true
 				});
 				// 	onChange: function (value) {
 				// 		console.log('changeee', value);
 				// 	}
 				if (this.model) {
-					setTimeout(() => select.dropdown('set selected', this.getLabel(this.model)));
+					setTimeout(() => this.jqueryDropdown.dropdown('set selected', this.getLabel(this.model)));
 				}
 			}
 		}
@@ -51,6 +53,9 @@ export class SelectComponent implements OnInit, AfterViewInit {
 
 	public change() {
 		this.onChange.emit(this.model);
+		if (this.jqueryDropdown) {
+			jQuery(':focus').blur();
+		}
 	}
 
 }
