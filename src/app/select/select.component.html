@@ -1,4 +1,4 @@
-<select [(ngModel)]="model" (change)="change()" class="ui search selection dropdown">
+<select [(ngModel)]="model" (change)="change()" class="ui search selection dropdown" [ngClass]="{'fluid': fluid}">
 	<option [ngValue]="null">Select</option>
 	<option *ngFor="let option of options" [ngValue]="option">{{getLabel(option)}}</option>
 </select>

@@ -6,10 +6,11 @@ import {TableComponent} from './table/table.component';
 import {FilterComponent} from './filter/filter.component';
 import {MiloService} from "./milo.service";
 import {MiloComponent} from "./milo.component";
-import { InputComponent } from './input/input.component';
-import { SelectComponent } from './select/select.component';
-import { InputCalendarComponent } from './input-calendar/input-calendar.component';
-import { LoadingComponent } from './loading/loading.component';
+import {InputComponent} from './input/input.component';
+import {SelectComponent} from './select/select.component';
+import {InputCalendarComponent} from './input-calendar/input-calendar.component';
+import {LoadingComponent} from './loading/loading.component';
+import {DurationPipe} from "./pipes/duration.pipe";
 
 @NgModule({
 	declarations: [
@@ -19,16 +20,17 @@ import { LoadingComponent } from './loading/loading.component';
 		InputComponent,
 		SelectComponent,
 		InputCalendarComponent,
-		LoadingComponent
+		LoadingComponent,
+		DurationPipe
 	],
 	imports: [
 		BrowserModule,
 		FormsModule
 	],
 	exports: [
-		TableComponent, InputComponent, SelectComponent, InputCalendarComponent, LoadingComponent
+		TableComponent, InputComponent, SelectComponent, InputCalendarComponent, LoadingComponent, DurationPipe
 	],
-	providers: [MiloService],
+	providers: [MiloService, DurationPipe],
 	bootstrap: [MiloComponent]
 })
 export class MiloModule {

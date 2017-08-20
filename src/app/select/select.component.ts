@@ -17,6 +17,8 @@ export class SelectComponent implements OnInit, AfterViewInit {
 	public options: any[];
 	@Input()
 	public value: any; // string key or function which modifies option
+	@Input()
+	fluid = false;
 
 	private jqueryDropdown: any;
 
