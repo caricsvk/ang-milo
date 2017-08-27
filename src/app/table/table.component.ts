@@ -36,7 +36,6 @@ export class TableComponent implements OnInit, OnChanges {
 		this.columns = this.adapter.getAllColumns();
 		this.actions = this.adapter.getActions();
 		this.adapter.onStateChange().subscribe(state => this.fetch(state));
-		this.fetch(this.adapter.getState());
 	}
 
 	private fetch(newState: TableState):void {
