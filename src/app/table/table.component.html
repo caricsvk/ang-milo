@@ -41,7 +41,7 @@
 				{{row ? column.view(row) : ""}}
 			</td>
 			<td>
-				<button *ngFor="let action of actions" (click)="action.trigger(row)" type="button" class="ui icon button"
+				<button *ngFor="let action of actions" (click)="action.trigger(row)" type="button" class="ui icon button" [ngClass]="action.name"
 				        [ngStyle]="{'display': action.show(row) ? 'inline-block' : 'none', visibility: row ? 'visible': 'hidden'}">
 					<!--<i class="pencil icon"></i> showed/hidden-->
 					{{action.name}}
