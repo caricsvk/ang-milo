@@ -19,6 +19,8 @@ export class SelectComponent implements OnInit, AfterViewInit {
 	public value: any; // string key or function which modifies option
 	@Input()
 	fluid = false;
+	@Input()
+	name = "";
 
 	private jqueryDropdown: any;
 
@@ -34,6 +36,9 @@ export class SelectComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
+		if (this.name) {
+			this.el.nativeElement.getElementsByTagName('select')[0].setAttribute('name', this.name);
+		}
 		if (jQuery) {
 			let dropdown:any = jQuery(this.el.nativeElement);
 			if (dropdown.dropdown) {
