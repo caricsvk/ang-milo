@@ -1,0 +1,7 @@
+<div class="milo-notification ui segment" *ngIf="notifications.length">
+	<div *ngFor="let notification of notifications; let i = index" role="alert" class="ui message" [ngClass]="notification.cssClass">
+		<i class="large close icon" (click)="notifications.splice(i, 1)"></i>
+		<div class="header">{{notification.message}}</div>
+		<!--<p>Go to your <b>special offers</b> page to see now.</p>-->
+	</div>
+</div>

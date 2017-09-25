@@ -11,6 +11,7 @@ import {SelectComponent} from './select/select.component';
 import {InputCalendarComponent} from './input-calendar/input-calendar.component';
 import {LoadingComponent} from './loading/loading.component';
 import {DurationPipe} from "./pipes/duration.pipe";
+import {NotificationComponent} from './notification/notification.component';
 
 @NgModule({
 	declarations: [
@@ -21,14 +22,16 @@ import {DurationPipe} from "./pipes/duration.pipe";
 		SelectComponent,
 		InputCalendarComponent,
 		LoadingComponent,
-		DurationPipe
+		DurationPipe,
+		NotificationComponent
 	],
 	imports: [
 		BrowserModule,
 		FormsModule
 	],
 	exports: [
-		TableComponent, InputComponent, SelectComponent, InputCalendarComponent, LoadingComponent, DurationPipe
+		TableComponent, InputComponent, SelectComponent, InputCalendarComponent, LoadingComponent,
+		NotificationComponent, DurationPipe
 	],
 	providers: [MiloService, DurationPipe],
 	bootstrap: [MiloComponent]
