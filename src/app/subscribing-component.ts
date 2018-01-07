@@ -1,13 +1,15 @@
 import {OnDestroy} from "@angular/core/core";
 import {Subject} from "rxjs/Rx";
+import {Observable} from "rxjs/Observable";
 
 export class SubscribingComponent implements OnDestroy {
 
-	onDestroy: Subject<void> = new Subject<void>();
+	onDestroySubject: Subject<any> = new Subject<any>();
+	onDestroy: Observable<any> = Observable.from(this.onDestroySubject);
 
 	ngOnDestroy():void {
-		this.onDestroy.next();
-		this.onDestroy.complete();
+		this.onDestroySubject.next();
+		this.onDestroySubject.complete();
 	}
 
 }

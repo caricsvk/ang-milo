@@ -18,12 +18,13 @@ export class TableComponent implements OnInit, OnChanges {
 	@Input() public showFilters:boolean = null;
 	@Input() public makeEmptyRows:boolean = true;
 
-	private state:TableState = new TableState(1, 10);
 	private actions:TableAction[] = null;
-	private columns:TableColumn[] = [];
-	private rows:any[] = [];
-	private maxPages:number = 1;
-	private rowsTotalCount:number = 0;
+
+	state:TableState = new TableState(1, 10);
+	columns:TableColumn[] = [];
+	rows:any[] = [];
+	maxPages:number = 1;
+	rowsTotalCount:number = 0;
 
 	constructor() {
 	}

@@ -10,7 +10,7 @@ export class ReplayStore<T> {
 		this._observable.connect();
 	}
 
-	get observable():ConnectableObservable<T> {
+	get observable():Observable<T> {
 		return this._observable;
 	}
 
