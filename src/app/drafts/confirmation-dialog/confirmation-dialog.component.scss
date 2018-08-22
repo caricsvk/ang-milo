@@ -1,0 +1,19 @@
+
+:host > * {
+  margin: -24px;
+  padding: 24px;
+}
+
+h1{
+  padding: 0px !important;
+}
+
+button {
+  &.ok-button {
+    float: right;
+  }
+}
+
+p {
+  white-space: pre-line;
+}

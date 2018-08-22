@@ -1,0 +1,35 @@
+<div class="filter-container">
+  <div (click)="onToggleCalendar()">
+    <mat-form-field>
+      <input matInput [placeholder]="placeholder" [value] ="fullDateValue()" readonly>
+    </mat-form-field>
+    <span class="select-arrow"></span>
+  </div>
+
+  <div *ngIf="showCalendar" class="mg-calendar mat-elevation-z5">
+    <div class="calendar-header">
+      <label >{{placeholder}}</label>
+    </div>
+    <div fxLayout="row">
+      <div class="editable-date">
+        <div>
+          <input disabled class="input-label" [value]="startDate | date:'dd MMM yyyy'">
+        </div>
+        <mat-calendar [selected]="startDate" [maxDate]="endDate" [startAt]="startDate"
+                      (selectedChange)="setStartDate($event)"></mat-calendar>
+      </div>
+
+      <div class="mid-col">
+        <label>to</label>
+      </div>
+
+      <div class="editable-date">
+        <div>
+          <input disabled class="input-label" [value]="endDate | date:'dd MMM yyyy'">
+        </div>
+        <mat-calendar [selected]="endDate" [minDate]="startDate" [startAt]="endDate"
+                      (selectedChange)="setEndDate($event)"></mat-calendar>
+      </div>
+    </div>
+  </div>
+</div>
